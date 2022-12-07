@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.rest.custommapper.employee.EmployeeCustomMapper">
+
+	<resultMap id="EmployeeDetails" type="com.spring.rest.dto.employee.EmployeeDto">
+		<result column="EMPLOYEE_ID" property="employeeId" />
+		<result column="NAME" property="name" />
+		<result column="DOB" property="dob" />
+		<result column="GENDER" property="gender" />
+		<result column="MOBILE" property="mobile" />
+		<result column="EMAIL" property="email" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP"/>
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<select id="findByEmployeeId" parameterType="long" resultMap="EmployeeDetails">
+		SELECT
+			E.EMPLOYEE_ID,
+			E.NAME,
+			E.DOB,
+			E.GENDER,
+			E.MOBILE, 
+			E.EMAIL,
+			E.CREATED_DATE,
+			E.UPDATED_DATE
+		FROM EMPLOYEE E
+		WHERE E.EMPLOYEE_ID = #{employeeId} 
+	</select>
+	
+	<select id="findAllEmployee" resultMap="EmployeeDetails">
+		SELECT
+			E.EMPLOYEE_ID,
+			E.NAME,
+			E.DOB,
+			E.GENDER,
+			E.MOBILE, 
+			E.EMAIL,
+			E.CREATED_DATE,
+			E.UPDATED_DATE
+		FROM EMPLOYEE E
+	</select>
+	
+	<insert id="createEmployee" parameterType="com.spring.rest.dto.employee.CreateEmployeeReqDto" useGeneratedKeys="true" keyProperty="dto.employeeId" keyColumn="EMPLOYEE_ID">
+    INSERT INTO EMPLOYEE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dto.name != null">
+        NAME,
+      </if>
+      <if test="dto.dob != null">
+        DOB,
+      </if>
+      <if test="dto.gender != null">
+        GENDER,
+      </if>
+      <if test="dto.mobile != null">
+        MOBILE,
+      </if>
+      <if test="dto.email != null">
+        EMAIL,
+      </if>
+      <if test="dto.createdDate != null">
+        CREATED_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dto.name != null">
+        #{dto.name,jdbcType=VARCHAR},
+      </if>
+      <if test="dto.dob != null">
+        #{dto.dob,jdbcType=DATE},
+      </if>
+      <if test="dto.gender != null">
+        #{dto.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="dto.mobile != null">
+        #{dto.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="dto.email != null">
+        #{dto.email,jdbcType=VARCHAR},
+      </if>
+      <if test="dto.createdDate != null">
+        #{dto.createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <delete id="deleteEmployee" parameterType="long">
+	    DELETE FROM 
+	   		EMPLOYEE
+		WHERE
+			EMPLOYEE_ID = #{employeeId}
+  </delete>
+  
+  <update id="updateEmployee"
+		parameterType="com.spring.rest.dto.employee.UpdateEmployeeReqDto">
+		UPDATE
+			EMPLOYEE
+		SET
+		<if test="name != null">
+			NAME = #{name,jdbcType=VARCHAR},
+		</if>
+			MOBILE = #{mobile,jdbcType=TIMESTAMP},
+			EMAIL = #{email,jdbcType=INTEGER},
+		<if test="gender != null">
+			GENDER = #{gender,jdbcType=VARCHAR},
+		</if>
+			DOB = #{dob,jdbcType=DATE},
+			UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP}
+		WHERE
+			EMPLOYEE_ID = #{employeeId,jdbcType=BIGINT}
+	</update>
+</mapper>
