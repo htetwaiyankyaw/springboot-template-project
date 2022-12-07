@@ -16,7 +16,7 @@ public class PointCutConfig {
 	protected void daoBean() {
 	}
 
-	@Pointcut("execution(* com.mutu.spring.rest.zgen.mapper.*.*(..)) || execution(* com.mutu.spring.rest.custommapper.*.*(..))")
+	@Pointcut("execution(* com.spring.rest.zgen.mapper.*.*(..)) || execution(* com.spring.rest.custommapper.*.*(..))")
 	protected void mapper() {
 	}
 

@@ -11,11 +11,6 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 
-/**
- * @author Zaw Than Oo
- * @since 01-DEC-2018
- */
-
 @SpringBootApplication
 @MapperScan(basePackages = {"com.spring.rest.custommapper." })
 @SecurityScheme(name = "javainuseapi", scheme = "basic", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
