@@ -1,1 +1,14 @@
 # springboot-template-project
+- spring-boot
+- lombok
+- Mybatis with MySQL
+- ExceptionHandlerAspect
+  - automatically exception handling and custom exception translation for DAO and MyBatis Mapper.
+- LoggingAspect with log4j2
+- ResponseBodyAdvice
+  - to respond same JSON response format
+- ResponseEntityExceptionHandler
+  - exception handling and custom Response Entity to client
+- spring-security with oauth2
+- Custom Password Encoder for Security
+- Common/Hibernate Validator for REST API Request Parameter
